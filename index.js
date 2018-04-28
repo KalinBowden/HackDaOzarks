@@ -16,6 +16,14 @@ var newOBJ;
 var jsonAssets;
 var newAsset;
 
+var assetArray = [];
+var yearArray = [];
+var valueArray = [];
+
+var count = 0;
+var hold0;
+var hold1;
+var hold2;
 
 // Create Account vars
 var inputEmail4 = document.getElementById('inputEmail4')
@@ -27,6 +35,8 @@ var inputState = document.getElementById('inputState')
 var inputZip = document.getElementById('inputZip')
 var data = document.getElementById('data');
 
+var win;
+
 // log in
 var exampleInputEmail1 = document.getElementById('exampleInputEmail1')
 var exampleInputPassword1 = document.getElementById('exampleInputPassword1')
@@ -35,7 +45,7 @@ if (notifyBtn)
 {
     notifyBtn.addEventListener('click', function() {
   const modalPath = path.join('file://', __dirname, 'CreateAccount.html')
-  let win = new BrowserWindow({ width: 550, height: 535 })
+ win = new BrowserWindow({ width: 550, height: 535 })
   win.on('close', function () { win = null })
   win.loadURL(modalPath)
   win.show()
@@ -52,6 +62,9 @@ if (MP)
   let win = new BrowserWindow({ width: 550, height: 535 })
   win.on('close', function () { win = null })
   win.loadURL(modalPath)
+  win.once('ready-to-show', () => {
+  this.hide();
+``})
   win.show()
      }
      else if (exampleInputEmail1.value != newOBJ.user){
@@ -122,32 +135,40 @@ document.addEventListener("DOMContentLoaded", function()
 {
 jsonUser = fs.readFileSync("./binDB/users.json");
 newOBJ = JSON.parse(jsonUser);
-jsonAssets = fs.readFileSync("./binDB/assets.json");
-newAsset = JSON.parse(jsonAssets);
 
-var t = "";
-for (var i = 0; i < newAsset.length; i++)
-{
-    t += newAsset[i];
-}
+ var readStream = fs.createReadStream("./binDB/assets.txt");
 
-alert(t);
 
-if (data)
-{
-var d = "";
+ var readline = require('readline');
 
-for (var i=0; i<newAsset.length; i++)
-   for (var item in newAsset) {
-       d += '<div class="row"><div class="col">'+JSON.parse(item)[asset]+'</div><div class="col">'+JSON.parse(item)[1]+'</div><div class="col">'+JSON.parse(item)[2]+'</div></div>'
-   }
+var rd = readline.createInterface({
+    input: fs.createReadStream('./binDB/assets.txt'),
+    output: process.stdout,
+    console: false
+});
 
-// for (var i = 0; i < 1; i++)
-// {
-//     d += '<div class="row"><div class="col">'+newAsset[i]+'</div><div class="col">'+newAsset[i]+'</div><div class="col">'+newAsset[i]+'</div></div>'
-// }
-    data.innerHTML = d;
-}
+rd.on('line', function(line) {
+    if (count == 3 && data)
+    {
+        count = 0;
+        d = '<div class="row"><div class="col">'+hold0+'</div><div class="col">'+hold1+'</div><div class="col">'+hold2+'</div></div>';
+        data.innerHTML += d;
+    }
+
+    if (count == 0)
+    {
+        hold0 = line;
+    }
+    else if (count == 1)
+    {
+        hold1 = line;
+    }
+    else if (count == 2)
+    {
+        hold2 = line;
+    }
+    count++
+});
 
 });
 
@@ -160,18 +181,19 @@ if (addInv)
         var years = document.getElementById('years');
         var value = document.getElementById('value');
 
-        var myObj = { 
-        "asset": asset.value,
-        "years": years.value,
-        "value": value.value };
+        var logger = fs.createWriteStream('./binDB/assets.txt', {
+        flags: 'a' // 'a' means appending (old data will be preserved)
+        })
 
-        var content = JSON.stringify(myObj);
+        logger.write(asset.value + '\r\n') // append string to your file
+        logger.write(years.value + '\r\n') // again
+        logger.write(value.value + '\r\n') // again
 
-        fs.readFile('./binDB/assets.json', function (err, data) {
-    var json = JSON.parse(data)
-    json.push(content)
 
-    fs.writeFile('./binDB/assets.json', JSON.stringify(json))
-    });
     })
 }
+
+win.on('closed', function()
+{
+win.hide();
+});
