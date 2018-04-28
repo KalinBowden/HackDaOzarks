@@ -1,4 +1,11 @@
 body
 {
     background-color:antiquewhite;
+    text-align: center;
+}
+
+.Main-Header
+{
+    letter-spacing: 4px;
+    font-size: 52px;
 }
