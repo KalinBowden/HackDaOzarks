@@ -7,6 +7,11 @@ const MP = document.getElementById('MP')
 const AI = document.getElementById('AI')
 const create = document.getElementById('create')
 
+// XML vars
+var fs = require("fs");
+var jsonUser = "";
+
+
 // Create Account vars
 var inputEmail4 = document.getElementById('inputEmail4')
 var inputPassword4 = document.getElementById('inputPassword4')
@@ -59,26 +64,58 @@ if (AI)
 if (create)
 {
     create.addEventListener('click', function()
-{
-    var temp = "";
+    {
+        var temp = "";
 
-    temp += inputEmail4.value;
-    temp += " ";
-    temp += inputPassword4.value;
-    temp += " ";
-    temp += inputAddress.value;
-    temp += " ";
-    temp += inputAddress2.value;
-    temp += " ";
-    temp += inputCity.value;
-    temp += " "; 
-    temp += inputState.value;
-    temp += " ";
-    temp += inputZip.value;
-    temp += " ";
+        temp += inputEmail4.value;
+        temp += " ";
+        temp += inputPassword4.value;
+        temp += " ";
+        temp += inputAddress.value;
+        temp += " ";
+        temp += inputAddress2.value;
+        temp += " ";
+        temp += inputCity.value;
+        temp += " "; 
+        temp += inputState.value;
+        temp += " ";
+        temp += inputZip.value;
+        temp += " ";
+        
+        var email = inputEmail4.value;
+        var password = inputPassword4.value;
+        var address = inputAddress.value;
+        var address2 = inputAddress2.value;
+        var city = inputCity.value;
+        var state = inputState.value;
+        var zip = inputZip.value;
 
-    alert(temp);    
-} )
+        var myObj = { 
+        "user": email,
+        "pass": password,
+        "add": address,
+        "add2": address2,
+        "city": city,
+        "st": state,
+        "zip": zip };
+
+        var content = JSON.stringify(myObj);
+
+        fs.writeFile("./binDB/users.json", content, 'utf8', function (err) {
+        if (err) {
+            return console.log(err);
+        }
+
+        alert("The file was saved!");
+    });
+
+    } )
 }
 
 
+document.addEventListener("DOMContentLoaded", function()
+{
+jsonUser = fs.readFileSync("./binDB/users.json");
+var newOBJ = JSON.parse(jsonUser);
+alert(newOBJ.user + " " + newOBJ.pass)
+});
