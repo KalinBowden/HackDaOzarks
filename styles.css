@@ -9,3 +9,8 @@ body
     letter-spacing: 4px;
     font-size: 52px;
 }
+
+.sub-header
+{
+    margin: 25px;
+}
