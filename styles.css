@@ -1,18 +1,22 @@
 body
 {
-    background-color:antiquewhite;
+    background-color: #f0f3f6;
     text-align: center;
+    color: #595959;
+    letter-spacing: 2px;
+    
 }
 
 .Main-Header
 {
-    letter-spacing: 4px;
+    letter-spacing: 6px;
     font-size: 52px;
 }
 
 .sub-header
 {
     margin: 25px;
+    letter-spacing: 4px;
 }
 
 .accountinfo
@@ -34,10 +38,19 @@ body
 .Inv-Info
 {
     padding: 15%;
-    margin: 0;
+    margin: 0px;      
 }
 
 .HI
 {
     margin: 0;
+}
+
+#login-group
+{
+    border-right-color: #595959;
+    border-right-style: solid;
+    border-right-width: 2px;
+    padding-right: 20%;
+    padding-left: 5%;
 }

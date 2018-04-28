@@ -18,5 +18,8 @@
   "homepage": "https://github.com/KalinBowden/HackDaOzarks#readme",
   "devDependencies": {
     "electron": "^1.8.6"
+  },
+  "dependencies": {
+    "jsonfile-updater": "^3.1.0"
   }
 }
