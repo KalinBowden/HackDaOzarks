@@ -13,5 +13,15 @@ const {app, BrowserWindow} = require('electron')
       slashes: true
     }))
   }
+
+  function createCreateAccount()
+  {
+      var caw = new BrowserWindow({width: 400, height: 700});
+      caw.loadURL(url.format({
+      pathname: path.join(__dirname, 'CreateAccount.html'),
+      protocol: 'file:',
+      slashes: true
+    }));
+  }
   
   app.on('ready', createWindow)
