@@ -1,0 +1,22 @@
+{
+  "name": "hackdaozarks",
+  "version": "1.0.0",
+  "description": "A fun electron app for learning",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KalinBowden/HackDaOzarks.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/KalinBowden/HackDaOzarks/issues"
+  },
+  "homepage": "https://github.com/KalinBowden/HackDaOzarks#readme",
+  "devDependencies": {
+    "electron": "^1.8.6"
+  }
+}
