@@ -19,3 +19,14 @@ body
 {
     padding: 15%;
 }
+
+.AddInv
+{
+    margin: 50px;
+
+}
+
+#InvList
+{
+    margin-bottom: 25px;
+}
